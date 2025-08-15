@@ -6,7 +6,6 @@ import subprocess
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
-from setuptools.command.test import test as TestCommand
 from distutils.version import LooseVersion
 
 
@@ -14,21 +13,6 @@ class CMakeExtension(Extension):
     def __init__(self, name, sourcedir="", *args, **kwargs):
         Extension.__init__(self, name, sources=[], *args, **kwargs)
         self.sourcedir = os.path.abspath(sourcedir)
-
-
-class PyTest(TestCommand):
-    user_options = [("pytest-args=", "a", "Arguments to pass to py.test")]
-
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.pytest_args = []
-
-    def run_tests(self):
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-
-        errno = pytest.main(self.pytest_args)
-        sys.exit(errno)
 
 
 class CMakeBuild(build_ext):
@@ -98,25 +82,17 @@ class CMakeBuild(build_ext):
             os.makedirs(self.build_temp)
         subprocess.check_call(
             ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env
-        )
+        )    
         subprocess.check_call(
             ["cmake", "--build", "."] + build_args, cwd=self.build_temp
         )
 
 
 setup(
-    name="sacf",
-    version="2.0",
-    author="Joshua Briegal",
-    author_email="jtb34@cam.ac.uk",
-    description="A selective estimator of the autocorrelation function for non-uniformly sampled timeseries data",
-    long_description="",
-    packages=["sacf"],
     ext_modules=[
         CMakeExtension("sacf.correlator", "sacf"),
         CMakeExtension("sacf.datastructure", "sacf"),
     ],
-    cmdclass=dict(build_ext=CMakeBuild, test=PyTest),
-    tests_require=["pytest", "numpy"],
+    cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
 )

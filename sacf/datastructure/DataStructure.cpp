@@ -8,6 +8,7 @@
 #include <numeric>
 #include <algorithm>
 #include <cmath>
+#include <functional>
 
 #include "DataStructure.h"
 
@@ -151,14 +152,14 @@ void DataStructure::setDataMean(){  // ignoring any 'NaN' values
 void DataStructure::settMax(){ t_max = t.back(); } // as time array is ordered
 
 void DataStructure::calcNormt(){
-    transform(t.begin(), t.end(), norm_t.begin(), std::bind2nd(std::minus<double>(), t[0]));
+    transform(t.begin(), t.end(), norm_t.begin(), std::bind(std::minus<double>(), std::placeholders::_1, t[0]));
 };
 
 void DataStructure::calcNormData(){
     norm_data = std::vector<double>(_data.size());
     for(int j = 0; j<N_datasets; j++){
         transform(_data.begin() + getVectorIndex(0, j), _data.begin() + getVectorIndex(M_datapoints, j),
-         norm_data.begin() + getVectorIndex(0, j), std::bind2nd(std::minus<double>(), data_mean[j]));
+         norm_data.begin() + getVectorIndex(0, j), std::bind(std::minus<double>(), std::placeholders::_1, data_mean[j]));
     }
 };
 
