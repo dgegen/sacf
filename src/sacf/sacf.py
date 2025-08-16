@@ -31,7 +31,6 @@ class SACF:
     """Compute the Generalised Autocorrelation Function (G-ACF)"""
 
     def __init__(self, timeseries=None, values=None, errors=None, filename=None):
-
         if filename:
             self.data = DataStructure(filename)
         else:
@@ -44,7 +43,7 @@ class SACF:
     def set_up_correlation(
         corr, min_lag=None, max_lag=None, lag_resolution=None, alpha=None
     ):
-        """ No return type. Applies non-default values to correlator """
+        """No return type. Applies non-default values to correlator"""
         if max_lag is not None:
             corr.max_lag = max_lag
         if min_lag is not None:

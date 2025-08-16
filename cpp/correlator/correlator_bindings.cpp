@@ -1,5 +1,5 @@
-#include "Correlator.h"
-#include "DataStructure.h"
+#include "sacf/Correlator.h"
+#include "sacf/DataStructure.h"
 #include "../datastructure/DataStructure.cpp"
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>

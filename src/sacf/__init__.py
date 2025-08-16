@@ -1,4 +1,4 @@
-""" Root module of package """
+"""Root module of package"""
 
 from .sacf import (
     SACF_LOG_MESSAGE,

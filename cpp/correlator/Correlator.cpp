@@ -2,7 +2,7 @@
 // Created by Josh Briegal on 23/11/2017.
 //
 
-#include "Correlator.h"
+#include "sacf/Correlator.h"
 #include <cmath>
 #include <iostream>
 #include <cfloat>

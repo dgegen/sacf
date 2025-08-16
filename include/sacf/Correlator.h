@@ -22,7 +22,7 @@
 #include <numeric>
 #include <string>
 
-#include "DataStructure.h"
+#include "sacf/DataStructure.h"
 
 double findMinDiff(std::vector<double>*);
 

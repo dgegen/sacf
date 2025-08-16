@@ -1,27 +1,36 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "cmake", "pybind11[global]"]
-build-backend = "setuptools.build_meta"
+requires = ["scikit-build-core>=0.4", "pybind11[global]"]
+build-backend = "scikit_build_core.build"
+
 
 [project]
 name = "sacf"
-version = "2.0"
+version = "3.0"
 description = "A selective estimator of the autocorrelation function for non-uniformly sampled timeseries data"
+requires-python = ">=3.8"
+keywords = ["time series", "autocorrelation"]
+readme = "readme.md"
 authors = [
     { name = "Joshua Briegal", email = "jtb34@cam.ac.uk" },
     { name = "David Degen", email = "ddegen@ethz.ch" }
 ]
 classifiers = [
-  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
   "Programming Language :: C++",
   "Operating System :: OS Independent",
   "License :: OSI Approved :: MIT License"
 ]
-urls = { "Homepage" = "https://github.com/joshbriegal/sacf/" }
-dependencies = ["numpy"]
 
 [project.optional-dependencies]
-test = ["pytest", "tox"]
+test = ["numpy", "pytest", "tox"]
 dev = ["ruff"]
 
-[tool.setuptools.packages.find]
-where = ["sacf"]
+[project.urls]
+"Homepage" = "https://github.com/joshbriegal/sacf"
+"Source" = "https://github.com/joshbriegal/sacf"
+"Bug Tracker" = "https://github.com/joshbriegal/sacf/issues"
+
+
+[tool.scikit-build]
+cmake.source-dir = "."
+wheel.packages = ["src/sacf"]
